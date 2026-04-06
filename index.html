@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>A-STEROIDS</title>
+    <link rel="stylesheet" href="style.css?v=5">
+</head>
+<body>
+    <div id="screen">
+        <div id="crt">
+            <canvas id="gameCanvas"></canvas>
+            <canvas id="shaderCanvas"></canvas>
+            <div id="shaderOverlay">
+                <div id="shaderCode"></div>
+            </div>
+            <div id="scanlines"></div>
+        </div>
+        <div id="hud">
+            <div id="score">0</div>
+            <div id="lives"></div>
+            <div id="level"></div>
+        </div>
+        <div id="shaderPanel">
+            <div id="shaderLabel">SHADER VISUALIZER</div>
+            <canvas id="shaderDisplayCanvas"></canvas>
+            <div id="shaderInfo"></div>
+        </div>
+    </div>
+
+    <script src="js/audio.js?v=5"></script>
+    <script src="js/entities.js?v=5"></script>
+    <script src="js/input.js?v=5"></script>
+    <script src="js/shader.js?v=5"></script>
+    <script src="js/game.js?v=5"></script>
+    <script src="js/main.js?v=5"></script>
+</body>
+</html>
