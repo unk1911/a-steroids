@@ -673,11 +673,6 @@ window.ASteroids.Game = (function () {
             ctx.fillText(`HIGH SCORE: ${highScore}`, W / 2, H / 2 + 240 * s);
         }
 
-        // Dedication
-        ctx.font = `${Math.floor(11 * s)}px "Courier New", monospace`;
-        ctx.fillStyle = `rgba(255, 255, 255, ${0.25 + Math.sin(titleTime * 0.03) * 0.1})`;
-        ctx.fillText('Dedicated To: Bebzer (a.k.a. The Love-Terrorist Group)', W / 2, H - 25);
-
         ctx.restore();
     }
 
