@@ -105,6 +105,31 @@ body {
     opacity: 0.7;
 }
 
+/* Site footer */
+#siteFooter {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 6px 12px;
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: #666;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 20;
+    pointer-events: auto;
+}
+
+#siteFooter a {
+    color: #888;
+    text-decoration: none;
+}
+
+#siteFooter a:hover {
+    color: #0f0;
+}
+
 /* Shader side panel */
 #shaderPanel {
     width: 320px;
@@ -198,4 +223,8 @@ body {
 
 .touch-device #gameCanvas {
     touch-action: none;
+}
+
+.touch-device #siteFooter {
+    display: none !important;
 }

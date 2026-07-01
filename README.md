@@ -4,7 +4,7 @@ A browser-based Asteroids clone with a live **WebGL shader visualizer** that rea
 
 **Play it live: [a-steroids.edeliverables.com](https://a-steroids.edeliverables.com)**
 
-![A-Steroids gameplay](game-playing-polished.png)
+![A-Steroids gameplay](assets/game-playing-polished.png)
 
 ## Gameplay
 
