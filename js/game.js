@@ -138,6 +138,8 @@ window.ASteroids.Game = (function () {
         ASteroids.Audio.resume();
         ASteroids.Audio.startHeartbeat(800);
 
+        if (ASteroids.Track) ASteroids.Track.event('game_start');
+
         // Enable shader background after a short delay
         setTimeout(() => {
             shaderBgEnabled = true;
@@ -359,6 +361,7 @@ window.ASteroids.Game = (function () {
             level++;
             spawnAsteroids();
             gameState = STATE.PLAYING;
+            if (ASteroids.Track) ASteroids.Track.event('level_reached', { level: level });
             ufoTimer = 200 + Math.floor(Math.random() * 300);
             ASteroids.Audio.startHeartbeat(getHeartbeatSpeed());
 
@@ -520,6 +523,7 @@ window.ASteroids.Game = (function () {
                 highScore = score;
                 localStorage.setItem('asteroids_highscore', String(highScore));
             }
+            if (ASteroids.Track) ASteroids.Track.event('game_over', { score: score, level: level });
         } else {
             respawnTimer = 120; // 2 seconds before respawn
         }
