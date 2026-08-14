@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://a-steroids.edeliverables.com/sitemap.xml
