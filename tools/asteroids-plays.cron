@@ -1,0 +1,6 @@
+# A-STEROIDS real-plays summary: t.gif hits in the access log -> events JSONL ->
+# /var/www/stats/asteroids-plays.html. Root because the logs are root:adm 640.
+# Source: github.com/unk1911/a-steroids tools/; installed to /usr/local/bin.
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+*/10 * * * * root /usr/local/bin/asteroids-plays.py >/var/log/asteroids-plays.log 2>&1

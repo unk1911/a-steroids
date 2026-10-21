@@ -1,38 +1,42 @@
 /**
  * A-STEROIDS - Lightweight first-party play-event tracking.
  *
- * Fire-and-forget beacons to our own server (track.php). No third parties,
- * no cookies, no user data. Purpose: distinguish real humans who actually
- * play from the bot/scanner noise that dominates the raw access logs.
+ * Fire-and-forget GETs of a static 1x1 gif (t.gif) on our own server, with the
+ * event in the query string. There is no server-side code: Apache's access log
+ * is the event log, and tools/asteroids-plays.py summarizes it on a cron.
+ * No third parties, no cookies, no user data. Purpose: distinguish real humans
+ * who actually play from the bot/scanner noise that dominates the raw logs.
  *
  * Every call is wrapped so tracking can NEVER interfere with the game.
  */
 (function () {
     'use strict';
 
-    var ENDPOINT = 'track.php';
+    var ENDPOINT = 't.gif';
 
     // Per-page-load id so events from one visit can be grouped into a session.
     var session = (Math.random().toString(36).slice(2, 10)) +
                   (Math.random().toString(36).slice(2, 6));
 
+    // Per-event counter: keeps every URL unique so no event is served from cache.
+    var seq = 0;
+
     function send(event, data) {
         try {
-            var payload = JSON.stringify({
-                e: event,
-                s: session,
-                d: data || {},
-                r: document.referrer || ''
-            });
-            if (navigator.sendBeacon) {
-                navigator.sendBeacon(ENDPOINT, new Blob([payload], { type: 'application/json' }));
-            } else if (window.fetch) {
-                fetch(ENDPOINT, {
-                    method: 'POST',
-                    body: payload,
-                    headers: { 'Content-Type': 'application/json' },
-                    keepalive: true
-                }).catch(function () {});
+            data = data || {};
+            var q = 'e=' + encodeURIComponent(event) +
+                    '&s=' + session +
+                    '&n=' + (++seq) +
+                    '&score=' + (parseInt(data.score, 10) || 0) +
+                    '&level=' + (parseInt(data.level, 10) || 0) +
+                    '&r=' + encodeURIComponent((document.referrer || '').slice(0, 300));
+            var url = ENDPOINT + '?' + q;
+            if (window.fetch) {
+                // keepalive lets the game_over beacon survive the tab closing.
+                fetch(url, { keepalive: true, cache: 'no-store', credentials: 'omit' })
+                    .catch(function () {});
+            } else {
+                new Image().src = url;
             }
         } catch (err) {
             /* never let tracking break the game */
